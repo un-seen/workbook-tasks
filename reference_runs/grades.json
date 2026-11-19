@@ -1,0 +1,41 @@
+{
+  "T04-P1-r5": {
+    "task": "T04",
+    "model": "particle-ai/particle-1",
+    "hand_grade": 1.0,
+    "code_grade": 1.0,
+    "wrong_rows": []
+  },
+  "T06-P1-r1": {
+    "task": "T06",
+    "model": "particle-ai/particle-1",
+    "hand_grade": 1.0,
+    "code_grade": 1.0,
+    "wrong_rows": []
+  },
+  "T08-P1-r5": {
+    "task": "T08",
+    "model": "particle-ai/particle-1",
+    "hand_grade": 1.0,
+    "code_grade": 1.0,
+    "wrong_rows": []
+  },
+  "T10-DS-r3": {
+    "task": "T10",
+    "model": "deepseek/deepseek-v4.1-flash-1017",
+    "hand_grade": 1.0,
+    "code_grade": 1.0,
+    "wrong_rows": []
+  },
+  "T10-GLM-r5": {
+    "task": "T10",
+    "model": "zai-org/GLM-5.3-Flash",
+    "hand_grade": 0.8,
+    "code_grade": 0.8,
+    "wrong_rows": [
+      "NVIDIA: ceo 'Jensen Huang' should be Colette M. Kress",
+      "Target: ceo 'Brian Cornell' should be Michael Fiddelke",
+      "Coca-Cola: ceo 'James Quincey' should be Henrique Braun"
+    ]
+  }
+}

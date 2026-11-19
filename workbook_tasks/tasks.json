@@ -1,0 +1,446 @@
+[
+  {
+    "id": "T04",
+    "title": "10-K revenue and net income (5 companies, named fiscal years)",
+    "seed": "Tab `Financials`:\n\n| company | fiscal year | revenue usd m | net income usd m | 10-K link |\n|---|---|---|---|---|\n| Apple | FY2025 (ended 27 Sep 2025) |  |  |  |\n| Microsoft | FY2025 (ended 30 Jun 2025) |  |  |  |\n| NVIDIA | FY2025 (ended 26 Jan 2025) |  |  |  |\n| Alphabet | FY2024 (ended 31 Dec 2024) |  |  |  |\n| Amazon | FY2024 (ended 31 Dec 2024) |  |  |  |",
+    "instruction": "For each company, fill in total revenue (total net sales) and net income in USD millions for the fiscal year shown in its row, as reported in the income statement of the 10-K for that fiscal year, with a link to that 10-K on SEC EDGAR.",
+    "kind": "tenk_figures",
+    "rows": [
+      {
+        "company": "Apple",
+        "revenue usd m": 416161,
+        "net income usd m": 112010,
+        "10-K link": "https://www.sec.gov/Archives/edgar/data/320193/000032019325000079/aapl-20250927.htm"
+      },
+      {
+        "company": "Microsoft",
+        "revenue usd m": 281724,
+        "net income usd m": 101832,
+        "10-K link": "https://www.sec.gov/Archives/edgar/data/789019/000095017025100235/msft-20250630.htm"
+      },
+      {
+        "company": "NVIDIA",
+        "revenue usd m": 130497,
+        "net income usd m": 72880,
+        "10-K link": "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000023/nvda-20250126.htm"
+      },
+      {
+        "company": "Alphabet",
+        "revenue usd m": 350018,
+        "net income usd m": 100118,
+        "10-K link": "https://www.sec.gov/Archives/edgar/data/1652044/000165204425000014/goog-20241231.htm"
+      },
+      {
+        "company": "Amazon",
+        "revenue usd m": 637959,
+        "net income usd m": 59248,
+        "10-K link": "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/amzn-20241231.htm"
+      }
+    ],
+    "scoring": {
+      "row_correct_if": "both figures exact in USD millions (MSFT +/-1 rounding tolerated only if the run shows its source rounding) and the link is that fiscal year's 10-K",
+      "trap": "later 10-Ks are on file (Apple FY2026 filed 2026-11-03; MSFT FY2026 2026-07-29; NVIDIA FY2026 2026-02-25; Alphabet/Amazon FY2025 Feb 2026) — figures from those are wrong rows"
+    },
+    "key_sources": {
+      "Apple": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json",
+        "https://www.sec.gov/Archives/edgar/data/320193/000032019325000077/a8-kex991q4202509272025.htm"
+      ],
+      "Microsoft": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json",
+        "https://www.sec.gov/Archives/edgar/data/789019/000095017025100226/msft-ex99_1.htm"
+      ],
+      "NVIDIA": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json",
+        "https://www.sec.gov/Archives/edgar/data/1045810/000104581025000021/q4fy25pr.htm"
+      ],
+      "Alphabet": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0001652044.json",
+        "https://www.sec.gov/Archives/edgar/data/1652044/000165204425000010/googexhibit991q42024.htm"
+      ],
+      "Amazon": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0001018724.json",
+        "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000002/amzn-20241231xex991.htm"
+      ]
+    }
+  },
+  {
+    "id": "T06",
+    "title": "Currency conversion at the ECB rate",
+    "seed": "Tab `Prices`:\n\n| item | currency | price | rate used | price eur |\n|---|---|---|---|---|\n| Laptop stand | USD | 249.00 |  |  |\n| Monitor | GBP | 389.50 |  |  |\n| Keyboard | JPY | 18900 |  |  |\n| Headset | USD | 129.99 |  |  |\n| Desk lamp | GBP | 64.00 |  |  |\n| Cable kit | JPY | 4200 |  |  |",
+    "instruction": "Convert each price to euros at the ECB euro foreign exchange reference rate published for Friday 30 October 2026 (rates are quoted as units of currency per 1 euro, so euro price = price ÷ rate), round each euro price to 2 decimals, fill in the rate used and the euro price, add a Total row that sums the rounded euro prices, and cite the source of the rates.",
+    "kind": "currency",
+    "rows": [
+      {
+        "item": "Laptop stand",
+        "rate used": "1.1172",
+        "price eur": "222.88"
+      },
+      {
+        "item": "Monitor",
+        "rate used": "0.8338",
+        "price eur": "467.14"
+      },
+      {
+        "item": "Keyboard",
+        "rate used": "175.68",
+        "price eur": "107.58"
+      },
+      {
+        "item": "Headset",
+        "rate used": "1.1172",
+        "price eur": "116.35"
+      },
+      {
+        "item": "Desk lamp",
+        "rate used": "0.8338",
+        "price eur": "76.76"
+      },
+      {
+        "item": "Cable kit",
+        "rate used": "175.68",
+        "price eur": "23.91"
+      }
+    ],
+    "total": "1014.62",
+    "scoring": {
+      "row_correct_if": "rate exact and euro price exact to the cent",
+      "traps": [
+        "multiplying instead of dividing (USD 249 x 1.1172 = 278.18)",
+        "using 2026-11-02 or 2026-10-29 rates (USD 1.1216 / 1.1130)"
+      ]
+    },
+    "key_sources": {
+      "Laptop stand": [],
+      "Monitor": [],
+      "Keyboard": [],
+      "Headset": [],
+      "Desk lamp": [],
+      "Cable kit": []
+    }
+  },
+  {
+    "id": "T08",
+    "title": "Update stale rows, leave the rest byte-identical",
+    "seed": "Tab `Accounts`:\n\n| company | hq city | ceo | last checked |\n|---|---|---|---|\n| Apple | Cupertino, CA | Tim Cook | 2025-06-30 |\n| The Walt Disney Company | Burbank, CA | Bob Iger | 2025-06-30 |\n| Meta Platforms | Menlo Park, CA | Mark Zuckerberg | 2025-06-30 |\n| Tesla | Austin, TX | Elon Musk | 2025-06-30 |\n| Costco | Issaquah, WA | Ron Vachris | 2025-06-30 |\n| Salesforce | San Francisco, CA | Marc Benioff | 2025-06-30 |\n| Johnson & Johnson | New Brunswick, NJ | Joaquin Duato | 2025-06-30 |\n| Bank of America | Charlotte, NC | Brian Moynihan | 2025-06-30 |\n| Merck & Co. | Rahway, NJ | Robert Davis | 2025-06-30 |\n| Lockheed Martin | Bethesda, MD | Jim Taiclet | 2025-06-30 |",
+    "instruction": "Check every row against the facts as of 12 November 2026. Where the hq city or ceo is no longer correct, replace that value and set that row's \"last checked\" to 2026-11-12, and add a source link for each change below the table. Do not change any other row or cell — rows that are still correct must stay exactly as they are, including their \"last checked\" date.",
+    "kind": "stale_rows",
+    "rows": [
+      {
+        "company": "Apple",
+        "hq city": "Cupertino, CA",
+        "ceo": "John Ternus",
+        "last checked": "2026-11-12",
+        "stale": true
+      },
+      {
+        "company": "The Walt Disney Company",
+        "hq city": "Burbank, CA",
+        "ceo": "Josh D'Amaro",
+        "last checked": "2026-11-12",
+        "stale": true
+      },
+      {
+        "company": "Meta Platforms",
+        "hq city": "Menlo Park, CA",
+        "ceo": "Mark Zuckerberg",
+        "last checked": "2025-06-30",
+        "stale": false
+      },
+      {
+        "company": "Tesla",
+        "hq city": "Austin, TX",
+        "ceo": "Elon Musk",
+        "last checked": "2025-06-30",
+        "stale": false
+      },
+      {
+        "company": "Costco",
+        "hq city": "Issaquah, WA",
+        "ceo": "Ron Vachris",
+        "last checked": "2025-06-30",
+        "stale": false
+      },
+      {
+        "company": "Salesforce",
+        "hq city": "San Francisco, CA",
+        "ceo": "Marc Benioff",
+        "last checked": "2025-06-30",
+        "stale": false
+      },
+      {
+        "company": "Johnson & Johnson",
+        "hq city": "New Brunswick, NJ",
+        "ceo": "Joaquin Duato",
+        "last checked": "2025-06-30",
+        "stale": false
+      },
+      {
+        "company": "Bank of America",
+        "hq city": "Charlotte, NC",
+        "ceo": "Brian Moynihan",
+        "last checked": "2025-06-30",
+        "stale": false
+      },
+      {
+        "company": "Merck & Co.",
+        "hq city": "Rahway, NJ",
+        "ceo": "Robert Davis",
+        "last checked": "2025-06-30",
+        "stale": false
+      },
+      {
+        "company": "Lockheed Martin",
+        "hq city": "Bethesda, MD",
+        "ceo": "Jim Taiclet",
+        "last checked": "2025-06-30",
+        "stale": false
+      }
+    ],
+    "scoring": {
+      "stale_rows": "Apple ceo -> John Ternus; Disney ceo -> Josh D'Amaro; both rows' last checked -> 2026-11-12 (hq unchanged)",
+      "unchanged_rows": "the 8 other rows must equal seed_rows_markdown byte-for-byte (after normalising table padding/whitespace only); any edit — e.g. 'Brian T. Moynihan', 'Robert M. Davis', a refreshed last-checked date — is an instruction deviation",
+      "also_wrong": "changing the Apple or Disney hq; leaving Tim Cook / Bob Iger"
+    },
+    "key_sources": {
+      "Apple": [],
+      "The Walt Disney Company": [],
+      "Meta Platforms": [
+        "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066773/meta09302026-ex311.htm",
+        "https://www.sec.gov/Archives/edgar/data/1326801/000162828026066700/meta-09302026xexhibit991.htm"
+      ],
+      "Tesla": [
+        "https://www.sec.gov/Archives/edgar/data/1318605/000162828026066775/tsla-2026x09x30xex311.htm",
+        "https://data.sec.gov/submissions/CIK0001318605.json"
+      ],
+      "Costco": [
+        "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/costex31110k83026.htm",
+        "https://data.sec.gov/submissions/CIK0000909832.json"
+      ],
+      "Salesforce": [
+        "https://www.sec.gov/Archives/edgar/data/1108524/000110852426000190/ex311-ceocertq2fy27.htm",
+        "https://www.sec.gov/Archives/edgar/data/1108524/000110852426000187/crm-q2fy27xexhibit991.htm"
+      ],
+      "Johnson & Johnson": [
+        "https://www.sec.gov/Archives/edgar/data/200406/000020040626000197/a20263qex311ceocertificati.htm",
+        "https://www.sec.gov/Archives/edgar/data/200406/000020040626000189/a2026q3exhibit991.htm"
+      ],
+      "Bank of America": [
+        "https://www.sec.gov/Archives/edgar/data/70858/000007085826000548/bac-0930202610xqex311.htm",
+        "https://data.sec.gov/submissions/CIK0000070858.json"
+      ],
+      "Merck & Co.": [
+        "https://www.sec.gov/Archives/edgar/data/310158/000031015826000248/exhibit311-rule13ax14a15dx.htm",
+        "https://data.sec.gov/submissions/CIK0000310158.json"
+      ],
+      "Lockheed Martin": [
+        "https://www.sec.gov/Archives/edgar/data/936468/000162828026066928/ex311q32026.htm",
+        "https://data.sec.gov/submissions/CIK0000936468.json"
+      ]
+    }
+  },
+  {
+    "id": "T10",
+    "title": "Breadth: HQ city and current CEO (15 companies, 30 min)",
+    "seed": "Tab `Companies`:\n\n| company | hq city | ceo | source |\n|---|---|---|---|\n| Microsoft |  |  |  |\n| Alphabet |  |  |  |\n| NVIDIA |  |  |  |\n| Amazon |  |  |  |\n| Walmart |  |  |  |\n| Target |  |  |  |\n| Coca-Cola |  |  |  |\n| Berkshire Hathaway |  |  |  |\n| Procter & Gamble |  |  |  |\n| Nike |  |  |  |\n| Starbucks |  |  |  |\n| Intel |  |  |  |\n| Boeing |  |  |  |\n| JPMorgan Chase |  |  |  |\n| Pfizer |  |  |  |",
+    "instruction": "For each company, fill in the city of its corporate headquarters (city and US state, as given on the cover of its latest SEC filing) and the person serving as its chief executive officer on 12 November 2026, with a source link for each row.",
+    "kind": "breadth",
+    "rows": [
+      {
+        "company": "Microsoft",
+        "hq city": "Redmond, WA",
+        "ceo": [
+          "Satya Nadella"
+        ]
+      },
+      {
+        "company": "Alphabet",
+        "hq city": "Mountain View, CA",
+        "ceo": [
+          "Sundar Pichai"
+        ]
+      },
+      {
+        "company": "NVIDIA",
+        "hq city": "Santa Clara, CA",
+        "ceo": [
+          "Colette M. Kress"
+        ]
+      },
+      {
+        "company": "Amazon",
+        "hq city": "Seattle, WA",
+        "ceo": [
+          "Andy Jassy"
+        ]
+      },
+      {
+        "company": "Walmart",
+        "hq city": "Bentonville, AR",
+        "ceo": [
+          "John Furner"
+        ]
+      },
+      {
+        "company": "Target",
+        "hq city": "Minneapolis, MN",
+        "ceo": [
+          "Michael Fiddelke"
+        ]
+      },
+      {
+        "company": "Coca-Cola",
+        "hq city": "Atlanta, GA",
+        "ceo": [
+          "Henrique Braun"
+        ]
+      },
+      {
+        "company": "Berkshire Hathaway",
+        "hq city": "Omaha, NE",
+        "ceo": [
+          "Greg Abel"
+        ]
+      },
+      {
+        "company": "Procter & Gamble",
+        "hq city": "Cincinnati, OH",
+        "ceo": [
+          "Shailesh Jejurikar"
+        ]
+      },
+      {
+        "company": "Nike",
+        "hq city": "Beaverton, OR",
+        "ceo": [
+          "Elliott Hill"
+        ]
+      },
+      {
+        "company": "Starbucks",
+        "hq city": "Seattle, WA",
+        "ceo": [
+          "Brian Niccol"
+        ]
+      },
+      {
+        "company": "Intel",
+        "hq city": "Santa Clara, CA",
+        "ceo": [
+          "Lip-Bu Tan"
+        ]
+      },
+      {
+        "company": "Boeing",
+        "hq city": "Arlington, VA",
+        "ceo": [
+          "Kelly Ortberg",
+          "Robert K. Ortberg"
+        ]
+      },
+      {
+        "company": "JPMorgan Chase",
+        "hq city": "New York, NY",
+        "ceo": [
+          "Jamie Dimon"
+        ]
+      },
+      {
+        "company": "Pfizer",
+        "hq city": "New York, NY",
+        "ceo": [
+          "Albert Bourla"
+        ]
+      }
+    ],
+    "scoring": {
+      "row_correct_if": "hq city matches (state optional) and ceo is the person named; legal-name variants accepted (Jen-Hsun/Jensen Huang, Robert K./Kelly Ortberg, James/Jamie Dimon, Andrew R./Andy Jassy, Gregory E./Greg Abel)",
+      "changed_in_2025_26": [
+        "Walmart: Doug McMillon -> John Furner (2026-02-01)",
+        "Target: Brian Cornell -> Michael Fiddelke (2026-02-01)",
+        "Coca-Cola: James Quincey -> Henrique Braun (2026-03-31)",
+        "Berkshire Hathaway: Warren Buffett -> Greg Abel (2026-01-01)",
+        "Procter & Gamble: Jon Moeller -> Shailesh Jejurikar (2026-01-01)"
+      ],
+      "wrong": "any predecessor named as CEO; Chicago for Boeing"
+    },
+    "key_sources": {
+      "Microsoft": [
+        "https://www.sec.gov/Archives/edgar/data/789019/000119312526436133/msft-ex31_1.htm",
+        "https://www.sec.gov/Archives/edgar/data/789019/000119312526436122/msft-ex99_1.htm",
+        "https://data.sec.gov/submissions/CIK0000789019.json"
+      ],
+      "Alphabet": [
+        "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000026/goog-20260304.htm",
+        "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000080/googexhibit991q32026.htm",
+        "https://data.sec.gov/submissions/CIK0001652044.json"
+      ],
+      "NVIDIA": [
+        "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000082/nvda-20261111.htm",
+        "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda2027q2ex311.htm",
+        "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000073/q2fy27pr.htm",
+        "https://data.sec.gov/submissions/CIK0001045810.json"
+      ],
+      "Amazon": [
+        "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000040/amzn-20260930xex311.htm",
+        "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000038/amzn-20260930xex991.htm",
+        "https://data.sec.gov/submissions/CIK0001018724.json"
+      ],
+      "Walmart": [
+        "https://www.sec.gov/Archives/edgar/data/104169/000010416926000154/wmtexhibit311fy27q2.htm",
+        "https://www.sec.gov/Archives/edgar/data/104169/000010416926000145/earningsreleasefy27q2.htm",
+        "https://data.sec.gov/submissions/CIK0000104169.json"
+      ],
+      "Target": [
+        "https://www.sec.gov/Archives/edgar/data/27419/000002741926000042/tgt-20260801xexhibit311.htm",
+        "https://www.sec.gov/Archives/edgar/data/27419/000002741926000034/a2026q2ex-99.htm",
+        "https://data.sec.gov/submissions/CIK0000027419.json"
+      ],
+      "Coca-Cola": [
+        "https://www.sec.gov/Archives/edgar/data/21344/000162828026067844/a20261002ex-311.htm",
+        "https://www.sec.gov/Archives/edgar/data/21344/000162828026067403/a2026q3earningsreleaseex-9.htm",
+        "https://data.sec.gov/submissions/CIK0000021344.json"
+      ],
+      "Berkshire Hathaway": [
+        "https://www.sec.gov/Archives/edgar/data/1067983/000119312526452412/brka-ex31_1.htm",
+        "https://www.wowt.com/2026/02/28/greg-abel-releases-first-shareholder-letter-berkshire-hathaway-ceo/",
+        "https://data.sec.gov/submissions/CIK0001067983.json"
+      ],
+      "Procter & Gamble": [
+        "https://www.sec.gov/Archives/edgar/data/80424/000008042426000256/fy2627q1jas10-qexhibit311.htm",
+        "https://www.sec.gov/Archives/edgar/data/80424/000008042426000250/fy2627q1jas8-kexhibit991.htm",
+        "https://data.sec.gov/submissions/CIK0000080424.json"
+      ],
+      "Nike": [
+        "https://www.sec.gov/Archives/edgar/data/320187/000032018726000193/nke-83126xexhibit311.htm",
+        "https://www.sec.gov/Archives/edgar/data/320187/000032018726000184/q1fy27exhibit991er.htm",
+        "https://data.sec.gov/submissions/CIK0000320187.json"
+      ],
+      "Starbucks": [
+        "https://www.sec.gov/Archives/edgar/data/829224/000082922426000130/sbux-06282026xexhibit311.htm",
+        "https://www.sec.gov/Archives/edgar/data/829224/000082922426000154/sbux-09272026xearningsrele.htm",
+        "https://data.sec.gov/submissions/CIK0000829224.json"
+      ],
+      "Intel": [
+        "https://www.sec.gov/Archives/edgar/data/50863/000005086326000191/a09262026ex311.htm",
+        "https://www.sec.gov/Archives/edgar/data/50863/000005086326000188/q326earningsrelease.htm",
+        "https://data.sec.gov/submissions/CIK0000050863.json"
+      ],
+      "Boeing": [
+        "https://www.sec.gov/Archives/edgar/data/12927/000162828026067508/a202609sep3010qex311.htm",
+        "https://www.sec.gov/Archives/edgar/data/12927/000162828026067411/a202609sep308kprex991.htm",
+        "https://data.sec.gov/submissions/CIK0000012927.json"
+      ],
+      "JPMorgan Chase": [
+        "https://www.sec.gov/Archives/edgar/data/19617/000162828026069523/corpq32026exhibit311.htm",
+        "https://www.sec.gov/Archives/edgar/data/19617/000162828026065582/a3q26erfexhibit991narrative.htm",
+        "https://data.sec.gov/submissions/CIK0000019617.json"
+      ],
+      "Pfizer": [
+        "https://www.sec.gov/Archives/edgar/data/78003/000007800326000127/pfe-exh311x9272026x10q.htm",
+        "https://www.sec.gov/Archives/edgar/data/78003/000007800326000125/pfe-9272026xex99.htm",
+        "https://data.sec.gov/submissions/CIK0000078003.json"
+      ]
+    }
+  }
+]

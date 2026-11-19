@@ -1,0 +1,19 @@
+[project]
+name = "workbook-tasks"
+version = "0.1.0"
+description = "Fill a spreadsheet tab from public sources (SEC EDGAR, ECB), graded row by row by code against a frozen key."
+readme = "README.md"
+license = "MIT"
+requires-python = ">=3.10"
+tags = ["tool-use", "web", "spreadsheets", "eval", "multi-turn"]
+dependencies = ["verifiers>=0.1.5", "datasets"]
+
+[project.optional-dependencies]
+test = ["pytest"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["workbook_tasks"]
