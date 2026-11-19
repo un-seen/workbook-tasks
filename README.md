@@ -46,15 +46,35 @@ Grade an answer from the command line:
 python -m workbook_tasks.grade T06 answer.md
 ```
 
-Or load the environment:
+The package is a taskset for the verifiers v1 API (`verifiers>=0.4.1`, Python 3.11 or later). verifiers finds it by the package name, `workbook-tasks`. Check the tasks and their scoring without calling a model:
 
-```python
-import verifiers as vf
-
-env = vf.load_environment("workbook-tasks")
+```bash
+vf-validate workbook-tasks --runtime.type subprocess
 ```
 
-The model gets one tool, `fetch`, which reads a public address and returns its text. SEC EDGAR asks automated clients to identify themselves; set `WORKBOOK_TASKS_USER_AGENT` to a name and contact address of your own before running against it.
+Run the four tasks against a model behind any OpenAI-compatible endpoint:
+
+```bash
+export OPENAI_API_KEY=...
+vf-run workbook-tasks -m <model> \
+  --client.base-url https://api.openai.com/v1 --client.api-key-var OPENAI_API_KEY \
+  --env.agent.runtime.type subprocess -n 4 -r 1
+```
+
+Without `--client.*`, `vf-run` uses Prime Intellect's inference endpoint and `PRIME_API_KEY`. Without `--env.agent.runtime.type subprocess`, the agent runs in a Prime sandbox. Traces and rewards are written under `outputs/`.
+
+Or load the environment in Python:
+
+```python
+import verifiers.v1 as vf
+
+env = vf.load_environment(vf.resolve_env_config({"taskset": {"id": "workbook-tasks"}}))
+tasks = list(env.taskset)  # 4 tasks: T04, T06, T08, T10
+```
+
+The agent uses the `null` harness by default: a plain tool-calling chat loop with no shell. Its one tool is `fetch`, which reads a public address and returns its text. The tool runs on the machine that runs the evaluation. Each run stops after 30 model turns; change this with `--env.agent.max-turns`. Pick some of the tasks with `--env.taskset.task-ids '["T06", "T10"]'`. The reward, `rows_correct`, is the grade of the model's last reply.
+
+SEC EDGAR asks automated clients to identify themselves; set `WORKBOOK_TASKS_USER_AGENT` to a name and contact address of your own before running against it.
 
 ## Tests
 
